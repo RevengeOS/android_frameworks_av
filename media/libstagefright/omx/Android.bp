@@ -133,6 +133,14 @@ cc_library_shared {
         "-D__ANDROID_VNDK_EXT__",
     ],
 
+    product_variables: {
+        citrus: {
+            uses_qcom_bsp_legacy: {
+                cppflags: ["-DQCOM_BSP_LEGACY"],
+            },
+        },
+    },
+
 }
 
 cc_library_shared {
