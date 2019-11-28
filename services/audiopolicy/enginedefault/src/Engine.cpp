@@ -461,7 +461,7 @@ audio_devices_t Engine::getDeviceForStrategyInt(legacy_strategy strategy,
             // no sonification on aux digital (e.g. HDMI)
             device2 = availableOutputDevicesType & AUDIO_DEVICE_OUT_AUX_DIGITAL;
         }
-        if ((device2 == AUDIO_DEVICE_NONE) &&
+        if ((device2 == AUDIO_DEVICE_NONE) && (strategy != STRATEGY_SONIFICATION) &&
                 (getForceUse(AUDIO_POLICY_FORCE_FOR_DOCK) == AUDIO_POLICY_FORCE_ANALOG_DOCK)) {
             device2 = availableOutputDevicesType & AUDIO_DEVICE_OUT_ANLG_DOCK_HEADSET;
         }
