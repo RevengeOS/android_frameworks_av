@@ -120,18 +120,6 @@ bool TimeCheck::TimeCheckThread::threadLoop()
             status = mCond.waitRelative(mMutex, waitTimeNs);
         }
         if (status != NO_ERROR) {
-            // Generate audio HAL processes tombstones and allow time to complete
-            // before forcing restart
-            std::vector<pid_t> pids = getAudioHalPids();
-            if (pids.size() != 0) {
-                for (const auto& pid : pids) {
-                    ALOGI("requesting tombstone for pid: %d", pid);
-                    sigqueue(pid, DEBUGGER_SIGNAL, {.sival_int = 0});
-                }
-                sleep(1);
-            } else {
-                ALOGI("No HAL process pid available, skipping tombstones");
-            }
             LOG_EVENT_STRING(LOGTAG_AUDIO_BINDER_TIMEOUT, tag);
             LOG_ALWAYS_FATAL("TimeCheck timeout for %s", tag);
         }
